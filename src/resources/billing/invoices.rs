@@ -1,19 +1,19 @@
 use crate::resources::billing::discounts::Discount;
 use crate::resources::billing::plans::Plans;
-use crate::resources::billing::subscriptions::{SubscriptionItems, Subscription};
+use crate::resources::billing::subscriptions::{Subscription, SubscriptionItems};
 use crate::resources::common::currency::Currency;
 use crate::resources::common::object::Object;
 
+use crate::resources::common::address::Address;
 use crate::resources::common::path::UrlPath;
-use crate::resources::core::paymentintents::PaymentIntent;
-use crate::util::{List, Period, RangeQuery, Expandable};
-use crate::{Client};
-use std::collections::HashMap;
 use crate::resources::core::charges::Charge;
 use crate::resources::core::customer::{Customer, CustomerShipping};
-use crate::resources::paymentmethods::source::PaymentSource;
+use crate::resources::core::paymentintents::PaymentIntent;
 use crate::resources::paymentmethods::paymentmethods::PaymentMethods;
-use crate::resources::common::address::Address;
+use crate::resources::paymentmethods::source::PaymentSource;
+use crate::util::{Expandable, List, Period, RangeQuery};
+use crate::Client;
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Invoice {
@@ -33,7 +33,7 @@ pub struct Invoice {
     pub charge: Option<Expandable<Charge>>,
     pub created: i64,
     pub currency: Currency,
-    pub custom_fields: Option<CustomFields>,
+    pub custom_fields: Option<Vec<CustomFields>>,
     pub customer: Expandable<Customer>,
     pub customer_email: Option<String>,
     pub customer_address: Option<Address>,
