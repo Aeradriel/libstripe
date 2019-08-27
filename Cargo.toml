@@ -1,11 +1,10 @@
 [package]
-name = "libstripe"
+name = "stripe_api"
 version = "0.5.7"
-authors = ["Darius C. <darius.clark@bundleofbytes.com>"]
+authors = ["Darius C. <darius.clark@bundleofbytes.com>", "Thibaut R. <thibaut.roche.perso@gmail.com>"]
 edition = "2018"
-description = "Stripe library for rust."
+description = "Stripe library for rust"
 license = "MIT/Apache-2.0"
-readme = "README.md"
 repository = "https://github.com/bundleofbytes/libstripe"
 keywords = ["stripe", "api", "payments"]
 
