@@ -1,6 +1,6 @@
 [package]
 name = "stripe_api"
-version = "0.5.7"
+version = "0.5.8"
 authors = ["Darius C. <darius.clark@bundleofbytes.com>", "Thibaut R. <thibaut.roche.perso@gmail.com>"]
 edition = "2018"
 description = "Stripe library for rust"
