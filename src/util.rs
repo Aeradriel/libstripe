@@ -10,28 +10,28 @@ pub struct List<T> {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(untagged, rename_all="lowercase")]
+#[serde(untagged, rename_all = "lowercase")]
 pub enum Expandable<T> {
     Object(Box<T>),
-    Id(String)
+    Id(String),
 }
 
 macro_rules! match_object {
-    ($self:ident) => (
+    ($self:ident) => {
         match $self {
             Expandable::Object(obj) => Some(obj),
             Expandable::Id(..) => None,
         }
-    )
+    };
 }
 
 macro_rules! match_id {
-    ($self:ident) => (
+    ($self:ident) => {
         match $self {
             Expandable::Object(..) => None,
             Expandable::Id(id) => Some(id),
         }
-    )
+    };
 }
 
 impl<T> Expandable<T> {
@@ -56,7 +56,7 @@ impl<T> Expandable<T> {
 pub struct Deleted {
     pub object: Object,
     pub deleted: bool,
-    pub id: String,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
@@ -140,14 +140,26 @@ mod tests {
 
     #[test]
     fn expand_chaining() {
-        let foo = Foo { bar: Expandable::Id("bar".into()) };
-        let bar = Bar { foo: Expandable::Object(Box::new(foo)) };
-        let foo = Foo { bar: Expandable::Object(Box::new(bar)) };
+        let foo = Foo {
+            bar: Expandable::Id("bar".into()),
+        };
+        let bar = Bar {
+            foo: Expandable::Object(Box::new(foo)),
+        };
+        let foo = Foo {
+            bar: Expandable::Object(Box::new(bar)),
+        };
 
         let res = foo
-            .bar.into_object().unwrap()
-            .foo.into_object().unwrap()
-            .bar.into_id().unwrap();
+            .bar
+            .into_object()
+            .unwrap()
+            .foo
+            .into_object()
+            .unwrap()
+            .bar
+            .into_id()
+            .unwrap();
         assert_eq!(res, format!("bar"));
     }
 }
