@@ -3,14 +3,14 @@ use crate::resources::common::object::Object;
 
 use crate::resources::common::path::UrlPath;
 use crate::util::Deleted;
-use crate::{Client};
+use crate::Client;
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Discount {
     pub object: Object,
     pub coupon: Coupon,
     pub customer: String,
-    pub end: i64,
+    pub end: Option<i64>,
     pub start: i64,
     pub subscription: Option<String>,
 }
